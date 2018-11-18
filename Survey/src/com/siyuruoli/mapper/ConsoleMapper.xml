@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.siyuruoli.mapper.ConsoleMapper">
+
+ <insert id="insertQuestionnaire">
+ 
+    insert into questionnaire(questionnaireName,createTime,completeStatus,questionnaireStatus,questionnaireType,stopTime)
+    values(#{questionnaireName},#{createTime},#{completeStatus},#{questionnaireStatus},#{questionnaireType},#{stopTime})
+ 
+ </insert>
+ 
+ <insert id="insertQuestion">
+ 
+    insert into question(questionnaireId,questionName,questionType) values(#{questionnaireId},#{questionName},#{questionType})
+ 
+ </insert>
+ 
+ 
+ <insert id="insertOption6" >
+   
+    insert into options (questionId,A,B) values(#{questionId},#{a},#{b})
+  
+ </insert>
+ 
+ <insert id="insertOption7">
+   
+    insert into options (questionId,A,B,C) values(#{questionId},#{a},#{b},#{c})
+  
+ </insert>
+ 
+
+ <select id="queryMaxId" resultType="Integer">
+ 
+      select max(questionnaireId) from questionnaire
+ 
+ </select>
+ 
+  <select id="queryQuestionId" resultType="Integer">
+ 
+      select max(questionId) from question
+ 
+ </select>
+ 
+<select id="queryQuestionnaire" resultType="Questionnaire">
+ 
+      select * from questionnaire where 1=1
+       <if test="mohu!=null and mohu!='' ">and questionnaireName like '%${mohu}%'</if>
+        <if test="state!=null and state!='' ">and questionnaireStatus=#{state}</if>    
+       limit  ${pageBegin} ,${pageSize}
+ 
+ </select>
+ 
+ <select id="queryCount" resultType="Integer">
+ 
+      select count(*) from questionnaire where 1=1
+      <if test="mohu!=null and mohu!='' ">and questionnaireName like '%${mohu}%'</if>
+      <if test="state!=null and state!='' ">and questionnaireStatus=#{state}</if>    
+ </select>
+ 
+ 
+ 
+ 
+ <select id="queryQuestionnaire2" resultType="Questionnaire">
+ 
+      select * from questionnaire where 1=1
+       <if test="mohu!=null and mohu!='' ">and questionnaireName like '%${mohu}%'</if>
+      <if test="state!=null">and questionnaireStatus=#{state}</if>   limit  ${pageBegin} ,${pageSize}
+ 
+ </select>
+ 
+ <select id="queryCount2" resultType="Integer">
+ 
+      select count(*) from questionnaire where 1=1
+       <if test="mohu!=null and mohu!='' ">and questionnaireName like '%${mohu}%'</if>
+       <if test="state!=null">and questionnaireStatus=#{state}</if> 
+ 
+ </select>
+
+
+</mapper>

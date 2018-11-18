@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 懒加载配置 -->
+	<settings>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+
+	<typeAliases>
+	    <typeAlias alias="Profession" type="com.siyuruoli.model.Profession" />
+	    <typeAlias alias="User" type="com.siyuruoli.model.User" />
+	     <typeAlias alias="History" type="com.siyuruoli.model.History" />
+	    <typeAlias alias="Birthday" type="com.siyuruoli.model.Birthday" />
+	    <typeAlias alias="Address" type="com.siyuruoli.model.Address" />
+	    <typeAlias alias="UserPo" type="com.siyuruoli.po.UserPo" />
+	    <typeAlias alias="Questionnaire" type="com.siyuruoli.model.Questionnaire" />
+		<typeAlias alias="Question" type="com.siyuruoli.model.Question" />
+		<typeAlias alias="Options" type="com.siyuruoli.model.Options" />
+		<typeAlias alias="Result" type="com.siyuruoli.model.Result" />
+		 <typeAlias alias="AllQuestion" type="com.siyuruoli.po.AllQuestion" />
+		  <typeAlias alias="HistoryPo" type="com.siyuruoli.po.HistoryPo" />
+		  
+	</typeAliases>
+
+	<mappers>
+		<!-- 使用xml映射配置方式 -->
+		 <mapper class="com.siyuruoli.mapper.UserMapper" />
+		 <mapper class="com.siyuruoli.mapper.ConsoleMapper" />	
+		 <mapper class="com.siyuruoli.mapper.MainMapper" />	
+	</mappers>
+</configuration>

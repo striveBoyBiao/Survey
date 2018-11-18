@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.siyuruoli.mapper.MainMapper">
+  
+  <select id="queryQuestionnaire" resultType="Questionnaire">
+ 
+      select * from questionnaire where questionnaireType=#{type} limit 0,5
+ 
+  </select>
+  
+   <select id="queryQuestionnaire2" resultType="Questionnaire">
+ 
+      select * from questionnaire where questionnaireType=#{type}  limit  ${pageBegin} ,${pageSize}
+ 
+  </select>
+  
+  
+  
+    <select id="queryQuestionnaire4" resultType="Questionnaire">
+ 
+      select * from questionnaire where questionnaireId=#{questionnaireId}
+ 
+   </select>
+   
+    <select id="queryQuestion" resultType="Question">
+ 
+      select * from question where questionnaireId=#{questionnaireId}
+ 
+   </select>
+   
+    <select id="queryOptions" resultType="Options">
+ 
+      select * from Options where questionId=#{questionId}
+ 
+   </select>
+   
+   
+   <insert id="insertResult" >
+      
+      insert into result(userId,questionnaireId,questionId,content) values(#{userId},#{questionnaireId},#{questionId},#{content})
+   
+   </insert>
+   
+   <select id="queryQuestionnaireId" resultType="Integer">
+   
+      select distinct questionnaireId from result where userId=#{userId}
+   
+   </select>
+   
+    <select id="queryResult" resultType="Integer">
+   
+      select count(*)  from (select * from result where questionId=#{number}) a where a.content=#{context1}
+   
+   </select>
+   
+   <update id="updateState">
+   
+       update questionnaire set questionnaireStatus=#{questionnaireStatus}  where questionnaireId=#{questionnaireId}
+   </update>
+   
+   
+    <update id="updateCompleteStatus">
+   
+       update questionnaire set completeStatus=completeStatus+1  where questionnaireId=#{questionnaireId}
+   </update>
+   
+   
+   
+     <select id="selectHistory" resultType="HistoryPo">
+   
+     select   questionnaireName, historyTime  from history h
+     left join  questionnaire q on h.questionnaireId=q.questionnaireId 
+     where h.userId=#{userId}
+   
+     </select>
+   
+   
+   <insert id="insertHistory">
+       insert into history(userId,questionnaireId,historyTime) values(#{userId},#{questionnaireId},#{historyTime})
+   
+   </insert>
+   
+   <select id="selectUser" resultType="User" >
+   
+       select * from user where userPassword=#{userPassword} and userId=#{userId}
+   
+   </select>
+   
+   
+    <update id="updatePassword">
+   
+       update user set userPassword=#{userPassword}  where userId=#{userId}
+   </update>
+   
+    <update id="destoryUser">
+   
+       update user set isDestroy=#{isDestroy}  where userId=#{userId}
+   </update>
+   
+   
+   
+   
+    <select id="queryBirthday" resultType="Birthday">
+  
+       select * from birthday where userId=#{userId}
+  
+  </select>
+  
+   <select id="queryAddress" resultType="Address">
+      select * from address where userId=#{userId}
+  
+  </select>
+    <select id="queryProfession" resultType="Profession">
+      select * from profession where userId=#{userId}
+  
+  </select>
+  
+  <select id="queryUser" resultType="User">
+      select * from user where userId=#{userId}
+  
+  </select>
+  
+  
+  
+  
+  <update id="updateBirthday">
+    
+            update  birthday set year=#{year},month=#{month},day=#{day} where  userId=#{userId}
+  
+  </update>
+  
+   <update id="updateAddress">
+    
+          update address set province=#{province},city=#{city} where  userId=#{userId}
+  
+  </update>
+  
+   <update id="updateProfession">
+    
+      update profession set occupation=#{occupation},industry=#{industry},department=#{department}  where  userId=#{userId}
+  
+  </update>
+  
+   <update id="updateUser">
+    
+      update user set userNickName=#{userNickName},userPhone=#{userPhone},sex=#{sex},userSalary=#{userSalary},education=#{education},signature=#{signature},likeMusic=#{likeMusic},wish=#{wish}  where  userId=#{userId}                                              
+  
+  </update>
+  
+  <insert id="insertProfession">
+  
+      insert into profession(userId,occupation,industry,department) values(#{userId},#{occupation},#{industry},#{department});
+      
+  </insert>
+  
+  
+  
+  
+  <select id="queryCount" resultType="Integer">
+  
+         select count(*) from   questionnaire where questionnaireType=#{type}
+  
+  </select>
+  
+  
+  
+   <select id="queryTop" resultType="Questionnaire">
+  
+         select * from   questionnaire  order by completeStatus desc limit 0,10
+  
+  </select>
+  
+  
+   <select id="queryNew" resultType="AllQuestion">
+  
+         select h.historyTime,u.userNickName,q.questionnaireName from   history h
+         left join questionnaire q on h.questionnaireId=q.questionnaireId
+         left join user u on h.userId=u.userId  
+         order by h.historyTime desc  limit 0,10
+  
+  </select>
+  
+  
+  
+  
+  
+   
+  
+  </mapper>
