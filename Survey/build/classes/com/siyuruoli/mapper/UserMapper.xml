@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.siyuruoli.mapper.UserMapper">
+  
+  <select id="queryUser" resultType="User"  >
+ 	 select * from User u where userAccount=#{userAccount}
+  </select>
+  
+  <select id="queryCount" resultType="Integer" >
+  
+     select max(userId) from user
+  </select>
+  
+  
+  <insert id="insertUser" >
+  
+	insert into user(userNickName,userAccount,userPassword,sex,userType,isDestroy) values(#{userNickName},#{userAccount},#{userPassword},#{sex},#{userType},#{isDestroy})
+  </insert>
+  
+  <insert id="insertBirthday">
+     
+     insert into birthday(userId,year,month,day) values(#{userId},#{year},#{month},#{day});
+  </insert>
+   <insert id="insertAddress">
+  
+      insert into address(userId,province,city) values(#{userId},#{province},#{city});
+  </insert >
+  
+  
+ 
+  
+  
+  
+  
+  </mapper>
